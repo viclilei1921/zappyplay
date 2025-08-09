@@ -57,12 +57,12 @@ rmdir /s /q web
 
 ## Navigator
 
-Page: 表示路由栈中各个页面的不可变对象，通常使用`MaterialPage`或者`CupertinaPage`;
+Page: 表示路由栈中各个页面的不可变对象，通常使用`MaterialPage`或者`CupertinoPage`;
 
 Router: 用来配置要展示的页面列表，通常，该页面列表会根据系统或者应用程序的状态改变而改变。除了直接使用`Router`本身外还可以使用`MaterialApp.router()`来创建;
 
 RouterDelegate: 定义应用程序中路由的行为，例如`Router`如何知道应用程序的变化以及如何响应，监听状态，并使用当前列表来构建Pages;
 
-RouteInformationParset: 可缺省，主要应用于web;
+RouteInformationParser: 可缺省，主要应用于web;
 
 BackButtonDispatcher: 响应后退按钮，并通知Router;

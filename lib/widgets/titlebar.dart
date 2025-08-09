@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:zappyplay/manager/register.dart';
+import 'package:zappyplay/manager/video.dart';
 
 class Titlebar extends StatelessWidget {
   const Titlebar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final video = getIt<VideoManager>();
+
     return Container(
       height: 28,
       color: Colors.transparent,
@@ -25,7 +29,12 @@ class Titlebar extends StatelessWidget {
         child: Row(
           children: [
             Spacer(),
-            Text("Zappy play"),
+            ValueListenableBuilder<String>(
+              valueListenable: video.playingTitle,
+              builder: (context, title, _) {
+                return Text(title);
+              },
+            ),
             Spacer(),
             Row(
               children: [

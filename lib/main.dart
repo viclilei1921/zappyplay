@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:zappyplay/manager/register.dart';
 import 'package:zappyplay/routes/delegate.dart';
 import 'package:zappyplay/routes/parser.dart';
 import 'package:zappyplay/utils/platform.dart';
@@ -8,6 +9,8 @@ import 'package:zappyplay/utils/platform.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MediaKit.ensureInitialized();
+
+  setupGetIt();
 
   if (isDesktop()) {
     await windowManager.ensureInitialized();
