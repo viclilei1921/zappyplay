@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:zappyplay/widgets/titlebar.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends StatelessWidget {
+  final Function(String) onNavigateToVideo;
+  const HomePage({super.key, required this.onNavigateToVideo});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'zappy play',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return Scaffold(
+      appBar: AppBar(title: const Text('zappy play')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            onNavigateToVideo(
+              'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+            );
+          },
+          child: const Text('play video'),
+        ),
       ),
-      home: Scaffold(appBar: buildTitleBar(context), body: Text('Home')),
     );
   }
 }
