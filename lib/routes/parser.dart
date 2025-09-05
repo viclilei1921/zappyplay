@@ -13,11 +13,8 @@ class ZappyRouteInformationParser
       return ZappyRouteState(currentRoute: ZappyRoute.home);
     }
 
-    if (pathSegments.length == 2 && pathSegments[0] == 'video') {
-      return ZappyRouteState(
-        currentRoute: ZappyRoute.video,
-        videoPath: pathSegments[1],
-      );
+    if (pathSegments.length == 2 && pathSegments[0] == 'settings') {
+      return ZappyRouteState(currentRoute: ZappyRoute.settings);
     }
 
     return ZappyRouteState(currentRoute: ZappyRoute.home);
@@ -25,11 +22,8 @@ class ZappyRouteInformationParser
 
   @override
   RouteInformation? restoreRouteInformation(ZappyRouteState configuration) {
-    if (configuration.currentRoute == ZappyRoute.video &&
-        configuration.videoPath != null) {
-      return RouteInformation(
-        uri: Uri.parse('/video/${configuration.videoPath}'),
-      );
+    if (configuration.currentRoute == ZappyRoute.settings) {
+      return RouteInformation(uri: Uri.parse('/settings'));
     }
 
     return RouteInformation(uri: Uri.parse('/'));

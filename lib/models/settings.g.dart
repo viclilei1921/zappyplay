@@ -7,6 +7,7 @@ part of 'settings.dart';
 // **************************************************************************
 
 AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) => AppSettings(
+  locale: json['locale'] as String? ?? '',
   font: json['font'] as String? ?? '',
   themeMode:
       $enumDecodeNullable(_$ThemeModeEnumMap, json['themeMode']) ??
@@ -36,6 +37,7 @@ AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) => AppSettings(
 
 Map<String, dynamic> _$AppSettingsToJson(AppSettings instance) =>
     <String, dynamic>{
+      'locale': instance.locale,
       'font': instance.font,
       'themeMode': _$ThemeModeEnumMap[instance.themeMode]!,
       'themeCode': instance.themeCode,
@@ -44,8 +46,9 @@ Map<String, dynamic> _$AppSettingsToJson(AppSettings instance) =>
       'defaultVolume': instance.defaultVolume,
       'defaultSpeed': instance.defaultSpeed,
       'defaultMusicMode': instance.defaultMusicMode,
-      'mpvProperties': instance.mpvProperties,
+      'playAfterExit': instance.playAfterExit,
       'mpvOptions': instance.mpvOptions,
+      'mpvProperties': instance.mpvProperties,
       'enableMpvConfig': instance.enableMpvConfig,
       'useDefaultKeyBinding': instance.useDefaultKeyBinding,
       'mpvConfigPath': instance.mpvConfigPath,

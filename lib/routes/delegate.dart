@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zappyplay/models/app_state.dart';
-import 'package:zappyplay/pages/video.dart';
+import 'package:zappyplay/pages/settings.dart';
 import 'package:zappyplay/pages/home.dart';
 
 class ZappyRouterDelegate extends RouterDelegate<ZappyRouteState>
@@ -14,15 +14,35 @@ class ZappyRouterDelegate extends RouterDelegate<ZappyRouteState>
 
   List<MaterialPage> pages = [];
 
+  void goHome() {
+    _state = ZappyRouteState(currentRoute: ZappyRoute.home);
+    notifyListeners();
+  }
+
+  void goSettings() {
+    _state = ZappyRouteState(currentRoute: ZappyRoute.settings);
+    notifyListeners();
+  }
+
   @override
   Widget build(BuildContext context) {
     pages = [
-      MaterialPage(child: HomePage(onNavigateToVideo: _navigateToVideo)),
-      if (_state.currentRoute == ZappyRoute.video && _state.videoPath != null)
-        MaterialPage(child: VideoPage(videoPath: _state.videoPath!)),
+      MaterialPage(child: HomePage(onNavigateToSettings: _navigateToSettings)),
+      if (_state.currentRoute == ZappyRoute.settings)
+        MaterialPage(child: SettingsPage()),
     ];
 
-    return Navigator(key: navigatorKey, pages: pages);
+    return Navigator(
+      key: navigatorKey,
+      pages: pages,
+      onDidRemovePage: (Page removedPage) {
+        if (_state.currentRoute == ZappyRoute.settings) {
+          // 在这里同步移除页面状态
+          _state = ZappyRouteState(currentRoute: ZappyRoute.home);
+          notifyListeners();
+        }
+      },
+    );
   }
 
   @override
@@ -43,11 +63,8 @@ class ZappyRouterDelegate extends RouterDelegate<ZappyRouteState>
     _state = configuration;
   }
 
-  void _navigateToVideo(String videoPath) {
-    _state = ZappyRouteState(
-      currentRoute: ZappyRoute.video,
-      videoPath: videoPath,
-    );
+  void _navigateToSettings() {
+    _state = ZappyRouteState(currentRoute: ZappyRoute.settings);
     notifyListeners();
   }
 }

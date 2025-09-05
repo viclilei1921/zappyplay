@@ -1,0 +1,21 @@
+{
+  "@@locale": "zh",
+  "appTitle": "zappyplay",
+  "playlist": "播放列表",
+  "settings": "设置",
+  "theme": "主题",
+  "themeColor": "主题色",
+  "defaultVolume": "默认音量",
+  "screenshotDir": "截图保存地址",
+  "play": "播放",
+  "pause": "暂停",
+  "volume": "音量",
+  "speed": "速度",
+  "openUrl": "添加网络资源",
+  "addFiles": "添加文件",
+  "remove": "删除",
+  "clear": "清空",
+  "reorder": "排序",
+  "fullscreen": "全屏",
+  "exitFullscreen": "退出全屏"
+}

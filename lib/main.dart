@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:zappyplay/app.dart';
 import 'package:zappyplay/manager/register.dart';
-import 'package:zappyplay/routes/delegate.dart';
-import 'package:zappyplay/routes/parser.dart';
 import 'package:zappyplay/utils/platform.dart';
 
 void main() async {
@@ -30,22 +29,4 @@ void main() async {
   }
 
   runApp(const ZappyApp());
-}
-
-class ZappyApp extends StatelessWidget {
-  const ZappyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final routeParser = ZappyRouteInformationParser();
-    final routerDelegate = ZappyRouterDelegate();
-
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routeInformationParser: routeParser,
-      routerDelegate: routerDelegate,
-      title: 'zappy play',
-      theme: ThemeData(primaryColor: Colors.blue),
-    );
-  }
 }

@@ -16,4 +16,6 @@ void setupGetIt() {
     await video.init();
     return video;
   });
+
+  // getIt.registerLazySingleton<ThemeManager>(() => ThemeManager());
 }

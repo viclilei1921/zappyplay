@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
@@ -34,7 +35,7 @@ class VideoManager {
   final duration = ValueNotifier<Duration>(Duration.zero);
 
   /// 音量
-  final volume = ValueNotifier<double>(1.0);
+  final volume = ValueNotifier<double>(100.0);
 
   /// 播放速度
   final rate = ValueNotifier<double>(1.0);
@@ -95,15 +96,131 @@ class VideoManager {
   }
 
   /// 打开[media]视频
-  void addMedia(String source) {
-    _player.open(Media(source));
+  Future<void> addMedia(String source) async {
+    await _player.open(Media(source));
+  }
+
+  /// 添加视频到列表
+  Future<void> addPlayItem(String path) async {
+    await _player.add(Media(path));
   }
 
   /// 批量添加视频
-  void addPlayItems(List<String> paths) async {
+  Future<void> addPlayItems(List<String> paths) async {
     final playList = Playlist(paths.map((e) => Media(e)).toList(), index: 0);
     await _player.open(playList);
   }
+
+  Future<void> remove(int index) async {
+    await _player.remove(index);
+  }
+
+  /// 播放列表中视频
+  /// [index] 索引
+  Future<void> jump(int index) async {
+    if (playlist.value.medias.length <= 1) {
+      return;
+    }
+
+    if (index < 0 || index >= playlist.value.medias.length) {
+      return;
+    }
+
+    await _player.jump(index);
+  }
+
+  /// 上一首
+  Future<void> previous() async {
+    await _player.previous();
+  }
+
+  /// 下一首
+  Future<void> next() async {
+    await _player.next();
+  }
+
+  /// 移动播放列表顺序
+  Future<void> move(int from, int to) async {
+    await _player.move(from, to);
+  }
+
+  /// 停止
+  Future<void> stop() async {
+    await _player.stop();
+  }
+
+  /// 播放
+  Future<void> play() async {
+    await _player.play();
+  }
+
+  /// 暂停
+  Future<void> pause() async {
+    await _player.pause();
+  }
+
+  /// 跳转
+  Future<void> seek(Duration position) async {
+    // ignore: avoid_print
+    print(position);
+    // ignore: avoid_print
+    print(duration.value);
+    await _player.seek(position);
+  }
+
+  /// 设置音量
+  /// [vol] 音量
+  Future<void> setVolume(double vol) async {
+    await _player.setVolume(vol);
+  }
+
+  /// 设置播放速度
+  /// [rate] 播放速度
+  Future<void> setRate(double rate) async {
+    await _player.setRate(rate);
+  }
+
+  /// 选择音频轨道
+  Future<void> selectAudioTrack(int index) async {
+    final audioTracks = tracks.value.audio;
+    if (audioTracks.length == 1) {
+      // 只有一个的时候不需要选择
+      return;
+    }
+    if (index < 0 || index >= audioTracks.length) return;
+
+    final track = audioTracks[index];
+    await _player.setAudioTrack(track);
+  }
+
+  /// 选择视频轨道
+  Future<void> selectVideoTrack(int index) async {
+    final videoTracks = tracks.value.video;
+    if (videoTracks.length == 1) {
+      // 只有一个的时候不需要选择
+      return;
+    }
+    if (index < 0 || index >= videoTracks.length) return;
+
+    final track = videoTracks[index];
+    await _player.setVideoTrack(track);
+  }
+
+  /// 选择字幕轨道
+  Future<void> selectSubtitleTrack(int index) async {
+    final subtitleTracks = tracks.value.subtitle;
+    if (subtitleTracks.length == 1) {
+      // 只有一个的时候不需要选择
+      return;
+    }
+    if (index < 0 || index >= subtitleTracks.length) return;
+
+    final track = subtitleTracks[index];
+    await _player.setSubtitleTrack(track);
+  }
+
+  /// 截图
+  Future<Uint8List?> screenshot() => _player.screenshot(format: 'image/png');
 
   int voWidth = 0;
   int voHeight = 0;
@@ -113,15 +230,15 @@ class VideoManager {
   /// 当前尺寸（w 和 h）调整视频播放器的大小。
   ///
   /// 它计算一个缩放因子（fac）来保持视频的长宽比
-  void refreshVO() {
+  Future<void> refreshVO() async {
     var voInfo = _player.state.videoParams;
     int w = voInfo.dw ?? 1, h = voInfo.dh ?? 1;
     double fac = min(voWidth / w, voHeight / h);
-    controller.setSize(width: (w * fac) ~/ 1, height: (h * fac) ~/ 1);
+    await controller.setSize(width: (w * fac) ~/ 1, height: (h * fac) ~/ 1);
   }
 
-  void restoreVO() {
-    controller.setSize();
+  Future<void> restoreVO() async {
+    await controller.setSize();
   }
 
   /// steam监听

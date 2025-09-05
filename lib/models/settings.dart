@@ -9,6 +9,7 @@ part 'settings.g.dart';
 class AppSettings {
   // -------- Appearance Settings -----------
   /// 字体
+  String locale;
   String? font;
   ThemeMode themeMode;
   int themeCode;
@@ -31,6 +32,7 @@ class AppSettings {
 
   AppSettings({
     // Display Settings,
+    this.locale = 'zh',
     this.font,
     this.themeMode = ThemeMode.system,
     this.themeCode = 4,

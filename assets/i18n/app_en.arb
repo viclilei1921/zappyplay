@@ -1,0 +1,21 @@
+{
+  "@@locale": "en",
+  "appTitle": "zappyplay",
+  "playlist": "Playlist",
+  "settings": "Settings",
+  "theme": "Theme",
+  "themeColor": "Theme Color",
+  "defaultVolume": "Default Volume",
+  "screenshotDir": "Screenshot Folder",
+  "play": "Play",
+  "pause": "Pause",
+  "volume": "Volume",
+  "speed": "Speed",
+  "openUrl": "Open URL",
+  "addFiles": "Add Files",
+  "remove": "Remove",
+  "clear": "Clear",
+  "reorder": "Reorder",
+  "fullscreen": "Fullscreen",
+  "exitFullscreen": "Exit Fullscreen"
+}

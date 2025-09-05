@@ -1,4 +1,4 @@
-enum ZappyRoute { home, video }
+enum ZappyRoute { home, settings }
 
 class ZappyRouteState {
   final ZappyRoute currentRoute;
